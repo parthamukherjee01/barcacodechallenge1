@@ -1,0 +1,40 @@
+package Nov;
+
+import java.util.Scanner;
+
+public class Problem1 {
+
+	public static void main(String[] args) {
+		Scanner in = new Scanner(System.in);
+		int K = in.nextInt();
+		double[] X = new double[K];
+		double[] Y = new double[K];
+		for(int i=0;i<K;i++){
+			X[i] = in.nextDouble();
+			Y[i] = in.nextDouble();
+		}
+		int res = solution(X,Y);
+		System.out.println(res);
+		in.close();
+	}
+
+	private static int solution(double[] X, double[] Y) {
+		int count = 0;
+		for(int i=0 ,len=X.length; i<len ; i++){ 
+			for(int j=i+1 ; j<len ; j++){
+				for(int k=j+1 ; k<len ; k++){
+					if(k==i || k==j)
+						continue;
+					if( ((Y[k]-Y[j])/(X[k]-X[j]) == (Y[j]-Y[i])/(X[j]-X[i]) ) //BC==AB
+							&& ((Y[k]-Y[i])/(X[k]-X[i]) == (Y[j]-Y[i])/(X[j]-X[i])) )//AC==AB
+						count++;				
+				}//k
+			}//j
+		}//i
+		if(count > 100000000)
+			return -1;
+		else
+			return count;
+	}
+	
+}//end of class
